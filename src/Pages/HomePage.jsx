@@ -1,7 +1,7 @@
-import Sidebar from "../Components/Sidebar";
-import Navbar from "../Components/Navbar";
-import ActiveCards from "../Components/ActiveCards";
-import Projects from "../Components/Projects";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+import ActiveCards from "../components/ActiveCards";
+import Projects from "../components/Projects";
 
 const HomePage = () => {
   return (
