@@ -12,6 +12,7 @@ import "./index.css";
 import LoginPage from "./Pages/LoginPage";
 // import SignUpPage from "./Pages/SignUpPage";
 import HomePage from "./Pages/HomePage";
+import EmployeeHome from "./Pages/EmployeeHome";
 
 // const router = createBrowserRouter([
 //   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<LoginPage />} />
       <Route path="/home" element={<HomePage />} />
+      <Route path="/employee" element={<EmployeeHome />} />
     </Route>
   )
 );
