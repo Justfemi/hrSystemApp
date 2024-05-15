@@ -1,6 +1,3 @@
-import React from "react";
-import Card from "./Card";
-
 const projectData = [
   { title: "Project 1", startDate: "2024-01-01", endDate: "2024-06-01" },
   { title: "Project 2", startDate: "2024-02-01", endDate: "2024-07-01" },
@@ -47,9 +44,6 @@ const Projects = () => {
           </tbody>
         </table>
       </div>
-      <Card>
-        <h2>Pendig tasks</h2>
-      </Card>
     </div>
   );
 };

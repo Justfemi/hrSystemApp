@@ -1,12 +1,12 @@
-import React from "react";
-import HomePage from "./Pages/HomePage";
 import { Outlet } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 
 const App = () => {
   return (
-    <div>
+    <>
       <Outlet />
-    </div>
+    </>
   );
 };
 
