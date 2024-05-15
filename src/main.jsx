@@ -13,6 +13,7 @@ import LoginPage from "./Pages/LoginPage";
 // import SignUpPage from "./Pages/SignUpPage";
 import HomePage from "./Pages/HomePage";
 import EmployeeHome from "./Pages/EmployeeHome";
+import HrLogin from "./Pages/HrSignIn";
 
 // const router = createBrowserRouter([
 //   {
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<LoginPage />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/employee" element={<EmployeeHome />} />
+      <Route path="/hrlogin" element={<HrLogin />} />
     </Route>
   )
 );
