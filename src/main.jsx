@@ -1,42 +1,49 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-// import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./index.css";
+import MainLayout from "./layout/MainLayout";
+import AddNewUser from "./Pages/AddNewUser";
+import Users from "./Pages/Users";
+import LoginPage from "./Pages/LoginPage";
+// import MainLayout from "./layout/MainLayout";
+import HomeLayout from "./layout/HomeLayout";
 import {
-  createBrowserRouter,
-  createRoutesFromElements,
   Route,
   RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
 } from "react-router-dom";
-import "./index.css";
-import LoginPage from "./Pages/LoginPage";
-// import SignUpPage from "./Pages/SignUpPage";
-import HomePage from "./Pages/HomePage";
-import EmployeeHome from "./Pages/EmployeeHome";
-import HrLogin from "./Pages/HrSignIn";
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Login />,
-//   },
-//   {
-//     path: "/signup",
-//     element: <Signup />,
-//   },
-//   {
-//     path: "/home",
-//     element: <Home />,
-//   },
-// ]);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index={true} path="/" element={<LoginPage />} />
-      <Route path="/home" element={<HomePage />} />
-      <Route path="/employee" element={<EmployeeHome />} />
-      <Route path="/hrlogin" element={<HrLogin />} />
+      <Route path="/login" element={<LoginPage />} />
+
+      <Route
+        path="/"
+        element={
+          <MainLayout>
+            <HomeLayout />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <MainLayout>
+            <Users />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/add_new_user"
+        element={
+          <MainLayout>
+            <AddNewUser />
+          </MainLayout>
+        }
+      />
     </Route>
   )
 );

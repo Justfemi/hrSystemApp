@@ -1,6 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
-import ActiveCards from "../components/ActiveCards";
+
 import Projects from "../components/Projects";
 
 const HomePage = () => {
@@ -10,11 +10,10 @@ const HomePage = () => {
       Welcome to the HomePage Page
     </div> */}
       <div className="grid grid-cols-[auto,1fr] flex-grow-1 overflow-auto">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <div className="flex flex-col">
-          <Navbar />
-          <ActiveCards />
-          <Projects />
+          {/* <Navbar />/ */}
+          {/* <Projects /> */}
         </div>
       </div>
     </>
