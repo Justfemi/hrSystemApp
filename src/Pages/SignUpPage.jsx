@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import test from "../assets/test2.jpg";
 import { useNavigate } from "react-router-dom";
 
-const SignUpPage = () => {
+const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/");
+    navigate("/home");
   };
 
   return (
@@ -16,43 +16,22 @@ const SignUpPage = () => {
         <img className="w-full h-full object-cover" src={test} alt="test" />
       </div>
       <div className="w-[55%] px-20">
-        <h2 className="text-2xl my-6">Sign Up</h2>
+        <h2 className="text-2xl my-6">Sign In</h2>
         <form action="#" onSubmit={handleSubmit}>
-          <div className="flex flex-col my-3">
-            <label className="mb-1">First Name</label>
-            <input type="text" className="border" />
-            {/* error */}
-          </div>
-          <div className="flex flex-col my-3">
-            <label className="mb-1">Last Name</label>
-            <input type="text" className="border" />
-            {/* error */}
-          </div>
           <div className="flex flex-col">
             <label className="mb-1">Email</label>
-            <input type="email" className="border" />
-            {/* error */}
-          </div>
-          <div className="flex flex-col my-3">
-            <label className="mb-1">Organization</label>
-            <input type="text" className="border" />
-            {/* error */}
+            <input type="email" className="w-full px-3 py-2 leading-tight border rounded-md shadow-sm focus:outline-none focus:border-red-400"  />
+
           </div>
           <div className="flex flex-col my-3">
             <label className="mb-1">Password</label>
-            <input type="password" className="border" />
-            {/* error */}
-          </div>
-          <div className="flex flex-col my-3">
-            <label className="mb-1">Confirm Password</label>
-            <input type="password" className="border" />
-            {/* error */}
+            <input type="password" className="w-full px-3 py-2 leading-tight border rounded-md shadow-sm focus:outline-none focus:border-red-400" />
           </div>
 
           <p>
-            Already have an account?
-            <Link to="/" className="text-red-600 ml-1">
-              Log In
+            Don&apos; t have an account?
+            <Link to="/signup" className="text-red-600 ml-1">
+              Sign up
             </Link>
           </p>
 
@@ -60,7 +39,7 @@ const SignUpPage = () => {
             onClick={handleSubmit}
             className="px-5 py-2 bg-red-600 my-3 text-white"
           >
-            Register
+            Login
           </button>
         </form>
       </div>
@@ -68,4 +47,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default LoginPage;

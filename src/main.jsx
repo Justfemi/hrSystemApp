@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import "./index.css";
 import LoginPage from "./Pages/LoginPage";
-import SignUpPage from "./Pages/SignUpPage";
+// import SignUpPage from "./Pages/SignUpPage";
 import HomePage from "./Pages/HomePage";
 
 // const router = createBrowserRouter([
@@ -33,7 +33,6 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<LoginPage />} />
       <Route path="/home" element={<HomePage />} />
-      <Route path="/signup" element={<SignUpPage />} />
     </Route>
   )
 );
