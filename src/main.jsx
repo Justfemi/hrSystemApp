@@ -5,6 +5,7 @@ import "./index.css";
 import MainLayout from "./layout/MainLayout";
 import AddNewUser from "./Pages/AddNewUser";
 import Users from "./Pages/Users";
+import AddDepartmentPage from "./Pages/AddDepartmentPage";
 import LoginPage from "./Pages/LoginPage";
 // import MainLayout from "./layout/MainLayout";
 import HomeLayout from "./layout/HomeLayout";
@@ -25,6 +26,14 @@ const router = createBrowserRouter(
         element={
           <MainLayout>
             <HomeLayout />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/department"
+        element={
+          <MainLayout>
+            <AddDepartmentPage />
           </MainLayout>
         }
       />
