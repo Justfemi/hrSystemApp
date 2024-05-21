@@ -1,0 +1,131 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "contact": "+1234567890",
+      "gender": "Male",
+      "email": "john.doe@example.com",
+      "role": "admin",
+      "date_of_birth": "1990-05-15",
+      "password": "password123"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "contact": "+1987654321",
+      "gender": "Female",
+      "email": "jane.smith@example.com",
+      "role": "user",
+      "date_of_birth": "1985-08-25",
+      "password": "password456"
+    },
+    {
+      "id": "4",
+      "name": "Emily Brown",
+      "contact": "+1555666777",
+      "gender": "Female",
+      "email": "emily.brown@example.com",
+      "role": "user",
+      "date_of_birth": "1995-02-18",
+      "password": "password789"
+    },
+    {
+      "id": "1715994643744",
+      "name": "Ssewagudde David",
+      "employeeCode": "",
+      "department": "IT",
+      "role": "user",
+      "gender": "Male",
+      "contactNumber": "",
+      "dateOfLeaving": "",
+      "dateOfBirth": "",
+      "email": "captain@gmail.com",
+      "password": "captain"
+    },
+    {
+      "id": 1716194316176,
+      "name": "Namugula Joanita",
+      "employeeCode": "",
+      "department": "Marketing",
+      "role": "user",
+      "gender": "Female",
+      "contactNumber": "6787662873232",
+      "dateOfLeaving": "",
+      "dateOfBirth": "2024-05-03",
+      "email": "captain@gmail.com"
+    },
+    {
+      "id": 1716194614355,
+      "name": "Steve Rogers",
+      "email": "david@gmail.com",
+      "department": "Marketing",
+      "role": "user",
+      "gender": "Male",
+      "contactNumber": "6787662873232",
+      "password": "12345",
+      "dateOfBirth": "2024-05-16"
+    },
+    {
+      "id": 1716208181962,
+      "name": "Albert Einstein",
+      "email": "carol@gmail.com",
+      "department": "Marketing",
+      "role": "user",
+      "gender": "Male",
+      "contactNumber": "6787662873232",
+      "password": "12345",
+      "dateOfBirth": "2024-05-14"
+    }
+  ],
+  "leaves": [
+    {
+      "status": "approved",
+      "id": "1"
+    },
+    {
+      "status": "approved",
+      "id": "2"
+    },
+    {
+      "status": "approved",
+      "id": "3"
+    },
+    {
+      "status": "approved",
+      "id": "6853"
+    }
+  ],
+  "attendance": [
+    {
+      "userId": "1",
+      "userName": "John Doe",
+      "date": "2024-05-19",
+      "time": "09:00:00",
+      "status": "present",
+      "id": "4618"
+    },
+    {
+      "userId": "2",
+      "userName": "Jane Smith",
+      "date": "2024-05-19",
+      "time": "09:15:00",
+      "status": "present",
+      "id": "5779"
+    },
+    {
+      "id": "1a7b",
+      "userId": 1715994643744,
+      "date": "2024-05-18",
+      "status": "present",
+      "time": "2:36:41 AM"
+    },
+    {
+      "id": "f11f",
+      "userId": "1715994643744",
+      "date": "2024-05-20",
+      "status": "present",
+      "time": "3:33:02 PM"
+    }
+  ]
+}

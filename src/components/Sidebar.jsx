@@ -42,44 +42,32 @@ const Sidebar = () => {
   return (
     <>
       <aside className="fixed left-0 top-0 w-64 h-full bg-gray-900 p-4 z-50 sidebar-menu transition-transform">
-        {/* <div className="flex flex-col items-center space-y-2 py-4">
-          <h2>Human Resource</h2>
-          <User className="h-12" />
-          <p>Thorn Anderson</p>
-          <div className="flex">
-            <Settings className="h-4" />
-            <Power className="h-4" />
-          </div>
-        </div> */}
         <Link
-          to="/"
+          to="/admin"
           className="flex items-center pb-4 border-b border-b-gray-800"
         >
-          {/* <img src="https://placehold.co/32x32" alt="" className="w-8 h-8 rounded object-cover"> */}
-          <span className="text-lg font-bold text-white ml-3">Logo</span>
+          <span className="text-lg font-bold text-white ml-3">HR System</span>
         </Link>
         <hr />
         <ul className="mt-4">
           <li className="mb-1  active">
             <Link
-              to="/"
+              to="/admin"
               className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md -[.active]:bg-gray-800 -[.active]:text-white -[.selected]:bg-gray-950 -[.selected]:text-gray-100"
             >
-              {/* <i className="ri-home-2-line mr-3 text-lg"></i>
-               */}
               <CircleGauge className="h-4" />
               <span className="text-sm">Dashboard</span>
             </Link>
           </li>
           <li className="mb-1 ">
             <Link
-              to="/"
+              to="/department"
               className="flex items-center justify-between py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md "
               onClick={toggleOrganisationDropdown}
             >
               <div className="flex space-x-1 items-center ">
                 <Handshake className="h-4" />
-                <span className="text-sm">Organisation</span>
+                <span className="text-sm">Department</span>
               </div>
               {!isOrganisationDropdownOpen ? (
                 <ChevronRight className="h-4" />
@@ -87,7 +75,7 @@ const Sidebar = () => {
                 <ChevronUp className="h-4" />
               )}
             </Link>
-            {isOrganisationDropdownOpen && (
+            {/* {isOrganisationDropdownOpen && (
               <ul className="pl-7 mt-2 ">
                 <li className="mb-4">
                   <Link
@@ -106,11 +94,11 @@ const Sidebar = () => {
                   </Link>
                 </li>
               </ul>
-            )}
+            )} */}
           </li>
           <li className="mb-1 ">
             <Link
-              to="/"
+              to="/users"
               className="flex justify-between items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md "
               onClick={toggleUsersDropdown}
             >
@@ -125,7 +113,7 @@ const Sidebar = () => {
                 <ChevronUp className="h-4" />
               )}
             </Link>
-            {isUsersDropdownOpen && (
+            {/* {isUsersDropdownOpen && (
               <ul className="pl-7 mt-2 ">
                 <li className="mb-4">
                   <Link
@@ -144,30 +132,28 @@ const Sidebar = () => {
                   </Link>
                 </li>
               </ul>
-            )}
+            )} */}
           </li>
           <Link
-            to="/"
+            to="/attendance-management"
             className="flex items-center justify-between py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md "
             onClick={toggleAttendanceDropdown}
           >
-            {/* <i className="ri-instance-line mr-3 text-lg"></i> */}
             <div className="flex space-x-1 items-center ">
               <NotebookIcon className="h-4" />
               <span className="text-sm">Attendance</span>
             </div>
-            {/* <i className="ri-arrow-right-s-line ml-auto -[.selected]:rotate-90"></i> */}
             {!isAttendanceDropdownOpen ? (
               <ChevronRight className="h-4" />
             ) : (
               <ChevronUp className="h-4" />
             )}
           </Link>
-          {isAttendanceDropdownOpen && (
+          {/* {isAttendanceDropdownOpen && (
             <ul className="pl-7 mt-2 ">
               <li className="mb-4">
                 <Link
-                  to="/"
+                  to="/attendance-management"
                   className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3"
                 >
                   Attendance List
@@ -175,7 +161,7 @@ const Sidebar = () => {
               </li>
               <li className="mb-4">
                 <Link
-                  to="/"
+                  to="/attendandance-management"
                   className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3"
                 >
                   Add Attendance
@@ -190,16 +176,15 @@ const Sidebar = () => {
                 </Link>
               </li>
             </ul>
-          )}
+          )} */}
 
           <li className="mb-1 ">
             <Link
-              to="/"
+              to="/leave-management"
               className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md "
             >
-              {/* <i className="ri-settings-2-line mr-3 text-lg"></i> */}
               <Settings className="h-4" />
-              <span className="text-sm">Settings</span>
+              <span className="text-sm">Leave Management</span>
             </Link>
           </li>
         </ul>

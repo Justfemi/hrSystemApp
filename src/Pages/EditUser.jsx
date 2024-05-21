@@ -1,44 +1,61 @@
 import { User } from "lucide-react";
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../contexts/AuthContext";
 
-const AddNewUser = () => {
-  const { addUser } = useContext(AuthContext);
-
+const EditUser = () => {
+  const { id } = useParams();
+  const { adminData, editUser } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const [newUser, setNewUser] = useState({
-    id: Date.now(),
-
+  const [user, setUser] = useState({
     name: "",
     email: "",
-    department: "",
+    contact: "",
     role: "",
-    gender: "",
-    contactNumber: "",
-    password: "",
-    dateOfBirth: "",
+    department: "",
   });
+
+  useEffect(() => {
+    const userToEdit = adminData.users.find((user) => user.id === Number(id));
+    if (userToEdit) {
+      setUser(userToEdit);
+    }
+  }, [adminData.users, id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewUser({ ...newUser, [name]: value });
+    setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   editUser(user);
+  //   navigate("/users");
+  // };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addUser(newUser);
-    navigate("/users");
+    // setLoading(true);
+    try {
+      // await editUser(user);
+      // toast.success("User updated successfully");
+      // navigate("/users");
+      const updatedUserData = await editUser(user); // Update user data in backend
+      setUser(updatedUserData); // Update local state with updated user data
+      toast.success("User updated successfully");
+    } catch (error) {
+      toast.error("Failed to update user");
+    }
   };
 
   const handleCancel = () => {
     navigate("/users");
   };
+
   return (
     <div className="max-w-[960px] mx-auto">
-      <div className="flex space-x-1 mb-2 items-center n  text-gray-400  font-medium py-4">
-        <User /> <h4>Add new Employee</h4>
+      <div className="flex space-x-1 mb-2 items-center text-gray-400 font-medium py-4">
+        <User /> <h4>Edit User</h4>
       </div>
       <form
         onSubmit={handleSubmit}
@@ -47,7 +64,7 @@ const AddNewUser = () => {
         <div className="mb-3">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="lastName"
+            htmlFor="name"
           >
             Name
           </label>
@@ -55,9 +72,9 @@ const AddNewUser = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="name"
             type="text"
-            placeholder="Enter name"
+            placeholder="Name"
             name="name"
-            value={newUser.name}
+            value={user.name}
             onChange={handleChange}
           />
         </div>
@@ -74,7 +91,7 @@ const AddNewUser = () => {
             type="email"
             placeholder="Email"
             name="email"
-            value={newUser.email}
+            value={user.email}
             onChange={handleChange}
           />
         </div>
@@ -89,13 +106,12 @@ const AddNewUser = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="department"
             type="text"
-            placeholder="Employee Department"
+            placeholder="Department"
             name="department"
-            value={newUser.department}
+            value={user.department}
             onChange={handleChange}
           />
         </div>
-
         <div className="mb-3">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -103,17 +119,15 @@ const AddNewUser = () => {
           >
             Role
           </label>
-          <select
+          <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="role"
+            type="text"
+            placeholder="Role"
             name="role"
-            value={newUser.role}
+            value={user.role}
             onChange={handleChange}
-          >
-            <option value="">Select Role</option>
-            <option value="admin">Administrator</option>
-            <option value="user">User</option>
-          </select>
+          />
         </div>
         <div className="mb-3">
           <label
@@ -126,7 +140,7 @@ const AddNewUser = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="gender"
             name="gender"
-            value={newUser.gender}
+            value={user.gender}
             onChange={handleChange}
           >
             <option value="">Select Gender</option>
@@ -148,28 +162,10 @@ const AddNewUser = () => {
             type="text"
             placeholder="Contact Number"
             name="contactNumber"
-            value={newUser.contactNumber}
+            value={user.contactNumber}
             onChange={handleChange}
           />
         </div>
-        <div className="mb-3">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="contactNumber"
-          >
-            Set Password
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="password"
-            type="text"
-            placeholder="Set Password"
-            name="password"
-            value={newUser.password}
-            onChange={handleChange}
-          />
-        </div>
-
         <div className="mb-3">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -181,9 +177,8 @@ const AddNewUser = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="dateOfBirth"
             type="date"
-            placeholder="Date of Birth"
             name="dateOfBirth"
-            value={newUser.dateOfBirth}
+            value={user.dateOfBirth}
             onChange={handleChange}
           />
         </div>
@@ -196,6 +191,7 @@ const AddNewUser = () => {
             Save
           </button>
           <button
+            type="button"
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-sm focus:outline-none focus:shadow-outline"
             onClick={handleCancel}
           >
@@ -207,4 +203,4 @@ const AddNewUser = () => {
   );
 };
 
-export default AddNewUser;
+export default EditUser;
