@@ -1,45 +1,37 @@
-import {
-  BellDot,
-  ChevronRight,
-  CircleUserRound,
-  LayoutDashboard,
-  LogOut,
-  Menu,
-  Search,
-  X,
-} from "lucide-react";
-import React, { useState } from "react";
+import { CircleUserRound, LogOut, Menu, Search, X } from "lucide-react";
+import { useContext } from "react";
+
 import { Link } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isUserButtonOpen, setIsUserButtonOpen] = useState(false);
-
-  const toggleSearchButton = () => {
-    setIsSearchOpen(!isSearchOpen);
-  };
-
-  const toggleUserButton = () => {
-    setIsUserButtonOpen(!isUserButtonOpen);
-  };
+  const { logout } = useContext(AuthContext);
   return (
-    <div className="py-2 px-6 bg-white flex items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
-      <button type="button" className="text-lg text-gray-600 sidebar-toggle">
-        <Menu />
-      </button>
-      <ul className="flex items-center text-sm ml-4">
-        <li className="mr-2">
+    <div className="py-2 px-6  flex w-full items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
+      <div className="flex justify-between w-full items-center">
+        <button
+          type="button"
+          className="text-lg flex items-center space-x-2 text-gray-600 "
+        >
+          <Menu />
           <Link
-            to="/"
+            to="/admin"
             className="text-gray-400 hover:text-gray-600 font-medium"
           >
             Dashboard
           </Link>
-        </li>
-        <li className="text-gray-600 mr-2 font-medium">/</li>
-        <li className="text-gray-600 mr-2 font-medium">Analytics</li>
+        </button>
+        <button
+          onClick={logout}
+          className="flex text-gray-600 text-[16px] items-center font-semibold space-x-2"
+        >
+          <span>Log out</span> <LogOut className="h-6" />
+        </button>
+      </div>
+      <ul className="flex items-center justify-between text-sm ml-4">
+        <li className="mr-2"></li>
       </ul>
-      <ul className="ml-auto flex items-center">
+      {/* <ul className="ml-auto flex items-center">
         <li className="mr-1 dropdown">
           <button
             onClick={toggleSearchButton}
@@ -47,7 +39,6 @@ const Navbar = () => {
             className=" text-gray-400 w-8 h-8 rounded flex items-center justify-center relative hover:bg-gray-50 hover:text-gray-600"
           >
             {!isSearchOpen ? <Search /> : <X />}
-            {/* <i className="ri-search-line"></i> */}
           </button>
           {isSearchOpen && (
             <div className="shadow-md shadow-black/5 z-30 max-w-xs w-full absolute top-10 right-10 bg-white rounded-md border border-gray-100">
@@ -59,7 +50,6 @@ const Navbar = () => {
                     className="py-2 pr-4 pl-2 bg-gray-50 w-full outline-none  text-sm "
                     placeholder="Search..."
                   />
-                  {/* <i className="ri-search-line absolute top-1/2 left-4 -translate-y-1/2 text-gray-400"></i> */}
                 </div>
               </form>
             </div>
@@ -72,7 +62,6 @@ const Navbar = () => {
             type="button"
             className=" flex items-center text-gray-400"
           >
-            {/* <img src="https://placehold.co/32x32" alt="" className="w-8 h-8 rounded block object-cover align-middle"> */}
             <CircleUserRound />
           </button>
           {isUserButtonOpen && (
@@ -104,7 +93,7 @@ const Navbar = () => {
             </ul>
           )}
         </li>
-      </ul>
+      </ul> */}
     </div>
   );
 };

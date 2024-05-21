@@ -1,102 +1,21 @@
-import { FilePenLine, Menu, Plus, User } from "lucide-react";
-import React from "react";
+import { Delete, FilePenLine, Menu, Plus, User } from "lucide-react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Users = () => {
-  const employees = [
-    {
-      id: 1,
-      name: "John Doe",
-      pin: "1234",
-      email: "john@example.com",
-      contact: "123-456-7890",
-      userType: "Regular",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      pin: "5678",
-      email: "jane@example.com",
-      contact: "987-654-3210",
-      userType: "Admin",
-    },
-    {
-      id: 3,
-      name: "Michael Johnson",
-      pin: "2468",
-      email: "michael@example.com",
-      contact: "456-789-0123",
-      userType: "Regular",
-    },
-    {
-      id: 4,
-      name: "Emily Davis",
-      pin: "1357",
-      email: "emily@example.com",
-      contact: "789-012-3456",
-      userType: "Regular",
-    },
-    {
-      id: 5,
-      name: "William Brown",
-      pin: "3692",
-      email: "william@example.com",
-      contact: "321-654-9870",
-      userType: "Admin",
-    },
-    {
-      id: 6,
-      name: "Olivia Wilson",
-      pin: "8024",
-      email: "olivia@example.com",
-      contact: "654-987-3210",
-      userType: "Regular",
-    },
-    {
-      id: 7,
-      name: "James Lee",
-      pin: "5791",
-      email: "james@example.com",
-      contact: "987-321-6540",
-      userType: "Regular",
-    },
-    {
-      id: 8,
-      name: "Sophia Martinez",
-      pin: "4682",
-      email: "sophia@example.com",
-      contact: "321-789-6540",
-      userType: "Admin",
-    },
-    {
-      id: 9,
-      name: "Daniel Taylor",
-      pin: "1579",
-      email: "daniel@example.com",
-      contact: "654-012-9873",
-      userType: "Regular",
-    },
-    {
-      id: 10,
-      name: "Isabella Thomas",
-      pin: "2468",
-      email: "isabella@example.com",
-      contact: "012-345-6789",
-      userType: "Admin",
-    },
-  ];
+  const { adminData, deleteUser } = useContext(AuthContext);
+  const users = adminData.users;
+
   return (
     <div className="p-6">
-      <div className="flex space-x-2 items-center pb-4">
+      <div className=" w-[max-content] pb-4">
         <Link
           to="/add_new_user"
-          className="flex items-center py-2 px-4 space-x-1 bg-blue-500 text-[#ffffff]"
+          className="flex items-center py-2 px-4 space-x-1 bg-gray-900 text-[#ffffff]"
         >
           <Plus /> <span>Add Employee</span>
         </Link>
-        <button className="flex items-center py-2 px-4 space-x-1 bg-purple-500 text-[#ffffff]">
-          <Menu /> <span> Leave</span>
-        </button>
       </div>
       <div className="overflow-x-auto   ">
         <div className=" flex items-center justify-between  text-gray-400 py-2  bg-gray-50">
@@ -114,66 +33,79 @@ const Users = () => {
           </div>
         </div>
         <hr />
-        <table className="table-auto w-full">
-          <thead>
-            <tr>
-              <th className="text-[12px] uppercase tracking-wide 50 text-left rounded-tl-md rounded-bl-md">
-                Employee Name
-              </th>
-              <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
-                PIN
-              </th>
-              <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
-                Email
-              </th>
-              <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
-                Contact
-              </th>
-              <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
-                User Type
-              </th>
-              <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {employees.map((employee) => (
-              <tr key={employee.id}>
-                <td className="py-2 px-4 border border-b-gray-50">
-                  <span className="text-[13px] font-medium text-gray-400">
-                    {employee.name}
-                  </span>
-                </td>
-                <td className="py-2 px-4 border border-b-gray-50">
-                  <span className="text-[13px] font-medium text-gray-400">
-                    {employee.pin}
-                  </span>
-                </td>
-                <td className="py-2 px-4 border border-b-gray-50">
-                  <span className="text-[13px] font-medium text-gray-400">
-                    {employee.email}
-                  </span>
-                </td>
-                <td className="py-2 px-4 border border-b-gray-50">
-                  <span className="text-[13px] font-medium text-gray-400">
-                    {employee.contact}
-                  </span>
-                </td>
-                <td className="py-2 px-4 border border-b-gray-50">
-                  <span className="text-[13px] font-medium text-gray-400">
-                    {employee.userType}
-                  </span>
-                </td>
-                <td className="py-2 px-4 border border-b-gray-50">
-                  <Link to={`/users/${employee.id}`}>
-                    <FilePenLine className="text-[13px] font-medium text-white bg-purple-800 m-2" />
-                  </Link>
-                </td>
+        {users && users.length > 0 ? (
+          <table className="table-auto w-full">
+            <thead>
+              <tr>
+                <th className="text-[12px] uppercase tracking-wide 50 text-left rounded-tl-md rounded-bl-md">
+                  Name
+                </th>
+
+                <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
+                  Email
+                </th>
+                <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
+                  Contact
+                </th>
+                <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
+                  User Role
+                </th>
+                <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
+                  Department
+                </th>
+                <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
+                  Action
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <td className="py-1 px-2 border-b ">
+                    <span className="text-[13px] font-medium text-gray-400">
+                      {user.name}
+                    </span>
+                  </td>
+                  <td className="py-1 px-2 border-b ">
+                    <span className="text-[13px] font-medium text-gray-400">
+                      {user.email}
+                    </span>
+                  </td>
+                  <td className="py-1 px-2 border-b ">
+                    <span className="text-[13px] font-medium text-gray-400">
+                      {user.contact}
+                    </span>
+                  </td>
+                  <td className="py-1 px-2 border-b ">
+                    <span className="text-[13px] font-medium text-gray-400">
+                      {user.role}
+                    </span>
+                  </td>
+                  <td className="py-1 px-2 border-b ">
+                    <span className="text-[13px] font-medium text-gray-400">
+                      {user.department}
+                    </span>
+                  </td>
+                  <td className="py-1 px-2 border-b ">
+                    <Link to={`/edit_user/${user.id}`}>
+                      <FilePenLine className="text-[13px] font-medium text-white bg-purple-800 m-2" />
+                    </Link>
+                  </td>
+                  <td className="py-1 px-2 border-b ">
+                    <button>
+                      <Delete
+                        onClick={() => deleteUser(user.id)}
+                        className="text-[13px] font-medium text-white bg-purple-800 m-2"
+                      />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>No users found</p>
+        )}
       </div>
     </div>
   );

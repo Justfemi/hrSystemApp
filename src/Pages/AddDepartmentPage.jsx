@@ -15,7 +15,7 @@ function AddDepartmentPage() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-start pt-10 justify-center">
       <div className="p-8 rounded-lg shadow-lg w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="bg-white p-5 rounded-sm">
+        <div className="bg-white p-5 h-[200px] rounded-sm">
           <h2 className="text-2xl font-bold mb-4">Add Department</h2>
           <input
             type="text"
@@ -26,7 +26,7 @@ function AddDepartmentPage() {
           />
           <button
             onClick={handleAddDepartment}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+            className="bg-gray-900 text-white px-4 py-2 rounded-lg"
           >
             Add
           </button>
