@@ -1,6 +1,6 @@
 import loginImg from "../assets/login.jpg";
 
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 
 const LoginPage = () => {
