@@ -19,10 +19,7 @@ import {
   Users2,
   Zap,
 } from "lucide-react";
-<<<<<<< HEAD
-=======
 import React, { useState } from "react";
->>>>>>> f21d655 (users page and cleanup)
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
