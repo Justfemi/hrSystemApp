@@ -20,7 +20,7 @@ import UserDashboard from "./Pages/UserDashboard";
 import LeaveApplication from "./Pages/LeaveApplication";
 import Attendance from "./Pages/Attendance";
 import EditUser from "./Pages/EditUser";
-import LeaveManagement from "./Pages/LeaveManagement";
+// import LeaveManagement from "./Pages/LeaveManagement";
 import AttendanceManagement from "./Pages/AttendanceManagement";
 
 const router = createBrowserRouter(
@@ -77,14 +77,14 @@ const router = createBrowserRouter(
             </MainLayout>
           }
         />
-        <Route
+        {/* <Route
           path="/leave-management"
           element={
             <MainLayout>
               <LeaveManagement />
             </MainLayout>
           }
-        />
+        /> */}
         <Route
           path="/attendance-management"
           element={
