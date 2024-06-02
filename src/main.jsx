@@ -3,9 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import MainLayout from "./layout/MainLayout";
-import AddNewUser from "./Pages/AddNewUser";
-import Users from "./Pages/Users";
-import AddDepartmentPage from "./Pages/AddDepartmentPage";
+
 import LoginPage from "./Pages/LoginPage";
 import HomeLayout from "./layout/HomeLayout";
 import {
@@ -17,39 +15,48 @@ import {
 } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import UserDashboard from "./Pages/UserDashboard";
-import LeaveApplication from "./Pages/LeaveApplication";
-import Attendance from "./Pages/Attendance";
-import EditUser from "./Pages/EditUser";
-// import LeaveManagement from "./Pages/LeaveManagement";
-import AttendanceManagement from "./Pages/AttendanceManagement";
+import AddUser from "./Pages/admin/AddUser";
+import Users from "./Pages/admin/Users";
+import UserProfile from "./Pages/UserProfile";
+import AddDepartment from "./Pages/admin/AddDepartment";
+import Departments from "./Pages/admin/Departments";
+import ProfileDetails from "./Pages/admin/ProfileDetails";
+import StaffDetails from "./Pages/admin/StaffDetails";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/login" element={<LoginPage />} />
-      <Route index element={<Navigate to="/login" />} />
-      {/* <Route path="*" element={<Navigate to="/login" />} />  */}
 
-      <Route element={<PrivateRoute roles={["user"]} />}>
+      <Route
+        path="/departments"
+        element={
+          <MainLayout>
+            <Departments />
+          </MainLayout>
+        }
+      />
+
+      <Route element={<PrivateRoute roles={["STAFF"]} />}>
         <Route path="/users/:id" element={<UserDashboard />} />
-        <Route path="/apply-leave" element={<LeaveApplication />} />
-        <Route path="/attendance" element={<Attendance />} />
+        <Route
+          path="/user/employee/:userId"
+          element={
+            <MainLayout>
+              <UserProfile />
+            </MainLayout>
+          }
+        />
+        {/* <Route path="/apply-leave" element={<LeaveApplication />} />
+        <Route path="/attendance" element={<Attendance />} /> */}
       </Route>
 
-      <Route element={<PrivateRoute roles={["admin"]} />}>
+      <Route element={<PrivateRoute roles={["ADMIN"]} />}>
         <Route
           path="/admin"
           element={
             <MainLayout>
               <HomeLayout />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/department"
-          element={
-            <MainLayout>
-              <AddDepartmentPage />
             </MainLayout>
           }
         />
@@ -62,34 +69,53 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="/add_new_user"
+          path="/user/employee/:userId"
           element={
             <MainLayout>
-              <AddNewUser />
+              <UserProfile />
             </MainLayout>
           }
         />
         <Route
-          path="/edit_user/:id"
+          path="/add-user"
           element={
             <MainLayout>
-              <EditUser />
+              <AddUser />
             </MainLayout>
           }
         />
-        {/* <Route
-          path="/leave-management"
+
+        <Route
+          path="/profile-details"
           element={
             <MainLayout>
-              <LeaveManagement />
+              <ProfileDetails />
             </MainLayout>
           }
-        /> */}
+        />
         <Route
-          path="/attendance-management"
+          path="/staff-details"
           element={
             <MainLayout>
-              <AttendanceManagement />
+              <StaffDetails />
+            </MainLayout>
+          }
+        />
+
+        <Route
+          path="/departments"
+          element={
+            <MainLayout>
+              <Departments />
+            </MainLayout>
+          }
+        />
+
+        <Route
+          path="/add-department"
+          element={
+            <MainLayout>
+              <AddDepartment />
             </MainLayout>
           }
         />

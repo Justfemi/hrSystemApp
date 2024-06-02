@@ -1,197 +1,200 @@
 import { createContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import api from "../api";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
-  const [adminData, setAdminData] = useState({
-    users: [],
-    reports: [],
-    leaves: [],
-    attendance: [],
-  });
+  const [token, setToken] = useState(localStorage.getItem("access_token"));
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchUsers();
-    fetchLeaves();
-    fetchAttendance();
-  }, []);
-
-  const fetchUsers = async () => {
-    const response = await fetch(`http://localhost:5000/users`);
-    const data = await response.json();
-
-    setAdminData((prevState) => ({
-      ...prevState,
-      users: data,
-    }));
-  };
-
-  const fetchLeaves = async () => {
-    const leavesResponse = await fetch(`http://localhost:5000/leaves`);
-    const leavesData = await leavesResponse.json();
-
-    setAdminData((prevState) => ({
-      ...prevState,
-      leaves: leavesData,
-    }));
-  };
-
-  const fetchAttendance = async () => {
+  const login = async (email, password) => {
     try {
-      const response = await fetch(`http://localhost:5000/attendance`);
-      const attendanceData = await response.json();
-      setAdminData((prevState) => ({
-        ...prevState,
-        attendance: attendanceData,
-      }));
+      const response = await api.post("/token/", { email, password });
+      console.log(response, "Response on log in");
+      if (response.status === 201 || response.status === 200) {
+        localStorage.setItem("access_token", response.data.access);
+        console.log("token set", response.data.access);
+      }
+
+      // Fetch user info immediately after login
+
+      const userResponse = await api.get(`user/employee/`, {
+        headers: {
+          Authorization: `Bearer ${response.data.access}`,
+          "Content-Type": "application/json",
+          // Accept: "application/json",
+        },
+      });
+
+      const users = userResponse.data.results;
+      setUser(users);
+      console.log(users);
+
+      const employee = users.find((emp) => emp.email === email);
+      console.log(employee);
+
+      // setUser(userResponse.data.results);
+
+      // console.log(userResponse.data.results);
+
+      // const employee = userResponse.data.results.find(
+      //   (emp) => emp.email === email
+      // );
+
+      console.log(employee);
+
+      if (employee && employee.role === "ADMIN") {
+        console.log("Navigating to admin dashboard");
+        navigate("/admin");
+      } else if (employee && employee.role === "STAFF") {
+        console.log("Navigating to user dashboard");
+
+        navigate(`/user/employee/${employee.id}`);
+      } else {
+        console.log("Employee not found or role not defined:", employee);
+      }
     } catch (error) {
-      console.error("Failed to fetch attendance:", error);
+      console.error("Failed to login:", error);
+      throw error;
     }
   };
 
-  const login = (name, password) => {
-    console.log("Attempting login with", name, password);
-    const authenticatedUser = adminData.users.find(
-      (u) => u.name === name && u.password === password
-    );
+  // Fetch user
 
-    if (authenticatedUser) {
-      setUser(authenticatedUser);
-      console.log("Login successful for user:", authenticatedUser);
-      if (authenticatedUser.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate(`/users/${authenticatedUser.id}`);
+  const fetchUser = async (userId) => {
+    if (token) {
+      try {
+        const response = await api.get(`/user/employee/${userId}/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+        return response.data;
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+        throw error;
       }
     } else {
-      console.log("Login failed. Invalid credentials.");
-      alert("Invalid username or password");
+      throw new Error("No access token available");
+    }
+  };
+
+  // Fetch users
+  const fetchUsers = async () => {
+    if (token) {
+      const access_token = localStorage.getItem("access_token");
+      console.log(access_token, "token from local storage");
+      try {
+        console.log("Fetching users with token:", token);
+        const response = await api.get("/user/employee", {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "content-type": "application/json",
+            Accept: "application/json",
+          },
+        });
+        console.log(response.data);
+        return response.data;
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+        throw error;
+      }
+    } else {
+      throw new Error("No access token available");
+    }
+  };
+
+  // Add user
+  const addUser = async (newUser) => {
+    if (token) {
+      const access_token = localStorage.getItem("access_token");
+      try {
+        await api.post(
+          "/user/employee/",
+          {
+            email: newUser.email,
+            first_name: newUser.firstName,
+            last_name: newUser.lastName,
+            username: newUser.username,
+            mobile_number: newUser.mobileNumber,
+            role: newUser.role,
+            password: newUser.password,
+            profile: {
+              gender: newUser.gender,
+              date_of_birth: newUser.dateOfBirth,
+              marital_status: newUser.maritalStatus,
+              nationality: newUser.nationality,
+              national_id: newUser.nationalId,
+              alternative_email: newUser.alternativeEmail,
+              country: newUser.country,
+              address: newUser.address,
+              city: newUser.city,
+              zip_code: newUser.zipCode,
+            },
+            staff_details: {
+              employee_id: newUser.employeeId,
+              start_date: newUser.startDate,
+              contract_status: newUser.contractStatus,
+            },
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        );
+      } catch (error) {
+        console.error("Failed to add user:", error);
+        throw error;
+      }
+    } else {
+      throw new Error("No access token available");
+    }
+  };
+
+  const deleteUser = async (userId) => {
+    if (token) {
+      const access_token = localStorage.getItem("access_token");
+      try {
+        await api.delete(`/user/employee/${userId}/`, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+      } catch (error) {
+        console.error("Failed to delete user:", error);
+        throw error;
+      }
+    } else {
+      throw new Error("No access token available");
     }
   };
 
   const logout = () => {
+    localStorage.removeItem("access_token");
+    setToken(null);
     setUser(null);
-    navigate("/login");
-  };
-
-  const addUser = async (newUser) => {
-    const response = await fetch(`http://localhost:5000/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    });
-    const data = await response.json();
-    setAdminData((prevState) => ({
-      ...prevState,
-      users: [...prevState.users, data],
-    }));
-  };
-
-  const deleteUser = async (userId) => {
-    await fetch(`http://localhost:5000/users/${userId}`, {
-      method: "DELETE",
-    });
-    setAdminData((prevState) => ({
-      ...prevState,
-      users: prevState.users.filter((user) => user.id !== userId),
-    }));
-  };
-
-  const editUser = async (updatedUser) => {
-    const response = await fetch(
-      `http://localhost:5000/users/${updatedUser.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedUser),
-      }
-    );
-    const data = await response.json();
-    setAdminData((prevState) => ({
-      ...prevState,
-      users: prevState.users.map((user) => (user.id === data.id ? data : user)),
-    }));
-  };
-
-  const applyLeave = async (leaveRequest) => {
-    try {
-      const response = await fetch(`http://localhost:5000/leaves`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(leaveRequest),
-      });
-      const data = await response.json();
-      setAdminData((prevState) => ({
-        ...prevState,
-        leaves: [...prevState.leaves, data],
-      }));
-    } catch (error) {
-      console.error("Failed to apply for leave:", error);
-    }
-  };
-
-  const handleLeaveRequest = async (leaveId, status) => {
-    try {
-      const response = await fetch(`http://localhost:5000/leaves/${leaveId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status }),
-      });
-      const data = await response.json();
-      setAdminData((prevState) => ({
-        ...prevState,
-        leaves: prevState.leaves.map((leave) =>
-          leave.id === leaveId ? data : leave
-        ),
-      }));
-    } catch (error) {
-      console.error(`Failed to ${status} leave request:`, error);
-    }
-  };
-  const checkInAttendance = async (attendanceRecord) => {
-    try {
-      const response = await fetch(`http://localhost:5000/attendance`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(attendanceRecord),
-      });
-      const data = await response.json();
-      setAdminData((prevState) => ({
-        ...prevState,
-        attendance: [...prevState.attendance, data],
-      }));
-    } catch (error) {
-      console.error("Failed to check in attendance:", error);
-    }
   };
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        login,
-        logout,
-        adminData,
+        token,
+        fetchUsers,
+        fetchUser,
         addUser,
         deleteUser,
-        editUser,
-        applyLeave,
-        handleLeaveRequest,
-        checkInAttendance,
+        login,
+        logout,
       }}
     >
       {children}
@@ -199,4 +202,4 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-export default AuthProvider;
+export default AuthContext;

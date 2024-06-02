@@ -1,25 +1,13 @@
 import {
-  Building,
   ChevronRight,
   ChevronUp,
   CircleGauge,
-  ClipboardPen,
-  FolderKanban,
-  HandCoins,
   Handshake,
-  LayoutDashboard,
-  List,
   NotebookIcon,
-  NotebookPen,
-  Power,
   Settings,
-  User,
-  UserX,
-  Users,
   Users2,
-  Zap,
 } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -135,7 +123,7 @@ const Sidebar = () => {
             )} */}
           </li>
           <Link
-            to="/attendance-management"
+            to="#"
             className="flex items-center justify-between py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md "
             onClick={toggleAttendanceDropdown}
           >
@@ -149,7 +137,7 @@ const Sidebar = () => {
               <ChevronUp className="h-4" />
             )}
           </Link>
-          {/* {isAttendanceDropdownOpen && (
+          {isAttendanceDropdownOpen && (
             <ul className="pl-7 mt-2 ">
               <li className="mb-4">
                 <Link
@@ -161,22 +149,14 @@ const Sidebar = () => {
               </li>
               <li className="mb-4">
                 <Link
-                  to="/attendandance-management"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3"
-                >
-                  Add Attendance
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="/"
+                  to="/weekly-report"
                   className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3"
                 >
                   Attendance Report
                 </Link>
               </li>
             </ul>
-          )} */}
+          )}
 
           <li className="mb-1 ">
             <Link
