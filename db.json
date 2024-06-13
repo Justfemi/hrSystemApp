@@ -76,6 +76,17 @@
       "contactNumber": "6787662873232",
       "password": "12345",
       "dateOfBirth": "2024-05-14"
+    },
+    {
+      "id": "1716498809093",
+      "name": "Google",
+      "email": "carol@gmail.com",
+      "department": "Marketing",
+      "role": "user",
+      "gender": "Male",
+      "contactNumber": "+65443442223",
+      "password": "12345",
+      "dateOfBirth": "2024-05-06"
     }
   ],
   "leaves": [
@@ -103,7 +114,8 @@
       "date": "2024-05-19",
       "time": "09:00:00",
       "status": "present",
-      "id": "4618"
+      "id": "4618",
+      "signOutTime": "2024-05-23T19:52:54.706Z"
     },
     {
       "userId": "2",
@@ -125,7 +137,8 @@
       "userId": "1715994643744",
       "date": "2024-05-20",
       "status": "present",
-      "time": "3:33:02 PM"
+      "time": "3:33:02 PM",
+      "signOutTime": "2024-05-23T19:53:21.346Z"
     },
     {
       "id": "b13b",
@@ -133,6 +146,118 @@
       "date": "2024-05-21",
       "status": "present",
       "time": "10:25:02 PM"
+    },
+    {
+      "id": "c37b",
+      "userId": "1715994643744",
+      "username": "Ssewagudde David",
+      "signInTime": "2024-05-23T19:48:37.327Z",
+      "signOutTime": null
+    },
+    {
+      "id": "5c07",
+      "userId": "1",
+      "username": "John Doe",
+      "signInTime": "2024-05-23T19:49:57.551Z",
+      "signOutTime": null
+    },
+    {
+      "id": "faa7",
+      "userId": "1715994643744",
+      "username": "Ssewagudde David",
+      "signInTime": "2024-05-23T19:53:15.000Z",
+      "signOutTime": null
+    },
+    {
+      "id": "1861",
+      "userId": "1",
+      "username": "John Doe",
+      "signInTime": "2024-05-23T19:53:34.721Z",
+      "signOutTime": null
+    },
+    {
+      "id": "01de",
+      "userId": "1",
+      "username": "John Doe",
+      "signInTime": "2024-05-23T20:06:32.165Z",
+      "signOutTime": null
+    },
+    {
+      "id": "7a09",
+      "userId": "1",
+      "username": "John Doe",
+      "signInTime": "2024-05-23T20:14:51.621Z",
+      "signOutTime": null
+    },
+    {
+      "id": "2390",
+      "userId": "1715994643744",
+      "username": "Ssewagudde David",
+      "signInTime": "2024-05-23T20:16:32.317Z",
+      "signOutTime": null
+    },
+    {
+      "id": "0613",
+      "userId": "1",
+      "username": "John Doe",
+      "signInTime": "2024-05-23T20:17:00.235Z",
+      "signOutTime": null
+    },
+    {
+      "id": "d1b7",
+      "userId": "1",
+      "username": "John Doe",
+      "signInTime": "2024-05-23T21:12:52.547Z",
+      "signOutTime": null
+    },
+    {
+      "id": "ecd4",
+      "userId": 1716498809093,
+      "username": "Google",
+      "signInTime": "2024-05-23T21:15:07.792Z",
+      "signOutTime": null
+    },
+    {
+      "id": "f5f3",
+      "userId": "1",
+      "username": "John Doe",
+      "signInTime": "2024-05-23T21:15:33.712Z",
+      "signOutTime": null
+    },
+    {
+      "id": "7aeb",
+      "userId": "1",
+      "username": "John Doe",
+      "signInTime": "2024-05-28T17:19:39.952Z",
+      "signOutTime": null
+    },
+    {
+      "id": "ef73",
+      "userId": "1715994643744",
+      "username": "Ssewagudde David",
+      "signInTime": "2024-05-28T17:20:14.535Z",
+      "signOutTime": null
+    },
+    {
+      "id": "96c2",
+      "userId": "1",
+      "username": "John Doe",
+      "signInTime": "2024-05-28T17:47:23.800Z",
+      "signOutTime": null
+    },
+    {
+      "id": "2da6",
+      "userId": "1",
+      "username": "John Doe",
+      "signInTime": "2024-05-28T19:10:59.881Z",
+      "signOutTime": null
+    },
+    {
+      "id": "2b2c",
+      "userId": "1715994643744",
+      "username": "Ssewagudde David",
+      "signInTime": "2024-05-28T19:11:31.587Z",
+      "signOutTime": null
     }
   ]
 }

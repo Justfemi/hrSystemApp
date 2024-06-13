@@ -1,17 +1,60 @@
-import { Delete, FilePenLine, Menu, Plus, User } from "lucide-react";
-import React, { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
+import AuthContext from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
+import { Plus, Trash2, User } from "lucide-react";
 
 const Users = () => {
-  const { adminData, deleteUser } = useContext(AuthContext);
-  const users = adminData.users;
+  const { fetchUsers, deleteUser } = useContext(AuthContext);
+  const [users, setUsers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const response = await fetchUsers();
+        if (response && Array.isArray(response.results)) {
+          setUsers(response.results);
+        } else {
+          setUsers([]);
+          console.error("Unexpected response format:", response);
+        }
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+      }
+    };
+
+    getUsers();
+  }, [fetchUsers]);
+
+  // Delete user
+  const handleDelete = async (userId) => {
+    try {
+      await deleteUser(userId);
+      // Update the local state to remove the deleted user
+      setUsers(users.filter((user) => user.id !== userId));
+    } catch (error) {
+      console.error("Failed to delete user:", error);
+    }
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredUsers = users.filter(
+    (user) =>
+      user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      `${user.first_name} ${user.last_name}`
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="p-6">
       <div className=" w-[max-content] pb-4">
         <Link
-          to="/add_new_user"
+          to="/add-user"
           className="flex items-center py-2 px-4 space-x-1 bg-gray-900 text-[#ffffff]"
         >
           <Plus /> <span>Add Employee</span>
@@ -29,51 +72,57 @@ const Users = () => {
               className="bg-gray-50 border-b outline-none pt-2 "
               name=""
               id=""
+              value={searchTerm}
+              onChange={handleSearch}
             />
           </div>
         </div>
         <hr />
-        {users && users.length > 0 ? (
+        {filteredUsers && filteredUsers.length > 0 ? (
           <table className="table-auto w-full">
             <thead>
               <tr>
                 <th className="text-[12px] uppercase tracking-wide 50 text-left rounded-tl-md rounded-bl-md">
+                  Email
+                </th>
+
+                <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
                   Name
                 </th>
 
                 <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
-                  Email
+                  User name
                 </th>
                 <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
-                  Contact
+                  Mobile number
                 </th>
                 <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
-                  User Role
-                </th>
-                <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
-                  Department
-                </th>
-                <th className="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">
-                  Action
+                  Role
                 </th>
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
+              {filteredUsers.map((user) => (
                 <tr key={user.id}>
                   <td className="py-1 px-2 border-b ">
                     <span className="text-[13px] font-medium text-gray-400">
-                      {user.name}
+                      <Link to={`/user/employee/${user.id}`}>{user.email}</Link>
                     </span>
                   </td>
                   <td className="py-1 px-2 border-b ">
                     <span className="text-[13px] font-medium text-gray-400">
-                      {user.email}
+                      {user.first_name} {user.last_name}
+                    </span>
+                  </td>
+
+                  <td className="py-1 px-2 border-b ">
+                    <span className="text-[13px] font-medium text-gray-400">
+                      {user.username}
                     </span>
                   </td>
                   <td className="py-1 px-2 border-b ">
                     <span className="text-[13px] font-medium text-gray-400">
-                      {user.contact}
+                      {user.mobile_number}
                     </span>
                   </td>
                   <td className="py-1 px-2 border-b ">
@@ -81,21 +130,12 @@ const Users = () => {
                       {user.role}
                     </span>
                   </td>
-                  <td className="py-1 px-2 border-b ">
-                    <span className="text-[13px] font-medium text-gray-400">
-                      {user.department}
-                    </span>
-                  </td>
-                  <td className="py-1 px-2 border-b ">
-                    <Link to={`/edit_user/${user.id}`}>
-                      <FilePenLine className="text-[13px] font-medium text-white bg-purple-800 m-2" />
-                    </Link>
-                  </td>
+
                   <td className="py-1 px-2 border-b ">
                     <button>
-                      <Delete
-                        onClick={() => deleteUser(user.id)}
-                        className="text-[13px] font-medium text-white bg-purple-800 m-2"
+                      <Trash2
+                        onClick={() => handleDelete(user.id)}
+                        className="text-red-400"
                       />
                     </button>
                   </td>
