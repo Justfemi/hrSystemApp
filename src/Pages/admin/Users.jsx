@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { Plus, Trash2, User } from "lucide-react";
@@ -106,7 +106,7 @@ const Users = () => {
                 <tr key={user.id}>
                   <td className="py-1 px-2 border-b ">
                     <span className="text-[13px] font-medium text-gray-400">
-                      <Link to={`/users/${user.id}`}>{user.email}</Link>
+                      <Link to={`/user/employee/${user.id}`}>{user.email}</Link>
                     </span>
                   </td>
                   <td className="py-1 px-2 border-b ">

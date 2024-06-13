@@ -8,11 +8,11 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(); // Call logout function
+    logout();
     navigate("/login"); // Navigate to login page
   };
   return (
-    <div className="py-2 px-6  flex w-full items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
+    <div className="py-2 px-6 bg-gray-100 flex w-full items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
       <div className="flex justify-between w-full items-center">
         <button
           type="button"
