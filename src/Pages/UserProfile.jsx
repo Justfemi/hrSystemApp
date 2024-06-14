@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import api from "../api";
 import { Pencil, User } from "lucide-react";
@@ -70,7 +70,7 @@ const UserProfile = () => {
 
   return (
     <>
-      <div className="max-w-full mx-auto mt-8 p-4 border rounded-lg shadow-md">
+      <div className="max-w-[960px] mx-auto my-8 p-4 border rounded-lg shadow-md">
         <div className="flex flex-col space-y-5">
           <div className="flex justify-between shadow-md rounded-lg p-5">
             <div className="flex space-x-3 items-center">

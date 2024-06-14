@@ -9,7 +9,7 @@ const AttendanceList = () => {
 
   useEffect(() => {
     if (token) {
-      fetchAttendanceData("/api/attendance/");
+      fetchAttendanceData("/attendance/");
     }
   }, [token]);
 
@@ -31,23 +31,23 @@ const AttendanceList = () => {
         <table className="min-w-full bg-white">
           <thead>
             <tr>
-              <th className="px-4 py-2 border">Employee</th>
-              <th className="px-4 py-2 border">Date</th>
-              <th className="px-4 py-2 border">Check In</th>
-              <th className="px-4 py-2 border">Check Out</th>
-              <th className="px-4 py-2 border">Total Time</th>
-              <th className="px-4 py-2 border">Notes</th>
+              <th className="px-4 py-2 border-b">Employee</th>
+              <th className="px-4 py-2 border-b">Date</th>
+              <th className="px-4 py-2 border-b">Check In</th>
+              <th className="px-4 py-2 border-b">Check Out</th>
+              <th className="px-4 py-2 border-b">Total Time</th>
+              <th className="px-4 py-2 border-b">Notes</th>
             </tr>
           </thead>
           <tbody>
             {attendanceData.map((attendance) => (
               <tr key={attendance.id}>
-                <td className="px-4 py-2 border">{attendance.employee}</td>
-                <td className="px-4 py-2 border">{attendance.date}</td>
-                <td className="px-4 py-2 border">{attendance.check_in}</td>
-                <td className="px-4 py-2 border">{attendance.check_out}</td>
-                <td className="px-4 py-2 border">{attendance.total_time}</td>
-                <td className="px-4 py-2 border">{attendance.notes}</td>
+                <td className="px-4 py-2 border-b">{attendance.employee}</td>
+                <td className="px-4 py-2 border-b">{attendance.date}</td>
+                <td className="px-4 py-2 border-b">{attendance.check_in}</td>
+                <td className="px-4 py-2 border-b">{attendance.check_out}</td>
+                <td className="px-4 py-2 border-b">{attendance.total_time}</td>
+                <td className="px-4 py-2 border-b">{attendance.notes}</td>
               </tr>
             ))}
           </tbody>

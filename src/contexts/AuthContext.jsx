@@ -95,6 +95,7 @@ export const AuthProvider = ({ children }) => {
             Accept: "application/json",
           },
         });
+
         console.log(response.data);
 
         return response.data;
@@ -343,26 +344,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // const updateLeaveRequest = async (id, leaveData) => {
-  //   if (token) {
-  //     const access_token = localStorage.getItem("access_token");
-  //     try {
-  //       await api.put(`/leave-requests/${id}/`, leaveData, {
-  //         headers: {
-  //           Authorization: `Bearer ${access_token}`,
-  //           "Content-Type": "application/json",
-  //           Accept: "application/json",
-  //         },
-  //       });
-  //     } catch (error) {
-  //       console.error("Failed to update leave request:", error);
-  //       throw error;
-  //     }
-  //   } else {
-  //     throw new Error("No access token available");
-  //   }
-  // };
-
   const logout = () => {
     localStorage.removeItem("access_token");
     setToken(null);
@@ -385,7 +366,6 @@ export const AuthProvider = ({ children }) => {
         addAttendance,
         fetchLeaveRequests,
         addLeaveRequest,
-        // updateLeaveRequest,
         deleteLeaveRequest,
 
         login,

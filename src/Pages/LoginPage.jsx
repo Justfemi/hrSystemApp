@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 import loginImg from "../assets/login.jpg";
-import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -13,11 +12,19 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      setError(null); // Clear any previous errors
     } catch (err) {
       setError("Failed to login. Please check your credentials.");
-      toast.error(err?.data?.message || err.error);
     }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setError(null);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setError(null);
   };
 
   return (
@@ -37,7 +44,7 @@ const LoginPage = () => {
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleEmailChange}
                 required
                 className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               />
@@ -49,7 +56,7 @@ const LoginPage = () => {
               <input
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handlePasswordChange}
                 required
                 className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               />
@@ -57,7 +64,7 @@ const LoginPage = () => {
             {error && <p className="text-sm text-red-600">{error}</p>}
             <button
               type="submit"
-              className="w-full px-4 py-2 font-medium text-white bg-gray-600 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="w-full px-4 py-2 font-medium text-white hover:font-bold bg-gray-600 rounded-lg hover:bg-gray-700 focus:outline-none "
             >
               Login
             </button>
