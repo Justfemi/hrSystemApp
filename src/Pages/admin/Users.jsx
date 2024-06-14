@@ -28,6 +28,9 @@ const Users = () => {
 
   // Delete user
   const handleDelete = async (userId) => {
+    const confirm = window.confirm("Are you sre you want to delete this user?");
+
+    if (!confirm) return;
     try {
       await deleteUser(userId);
       // Update the local state to remove the deleted user

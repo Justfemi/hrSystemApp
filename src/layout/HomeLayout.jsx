@@ -45,13 +45,28 @@ const HomeLayout = () => {
     <>
       <div className="flex justify-evenly items-center py-5 px-4 bg-gray-200">
         <Card>
-          {stats.employees} <strong>Employees</strong>
+          <div className="flex flex-col items-center justify-center space-y-3">
+            <div className="px-3 py-1 bg-gray-400  w-[max-content] text-[24px] rounded-full flex items-center justify-center text-white font-bold">
+              {stats.employees}
+            </div>
+            <strong>Employees</strong>
+          </div>
         </Card>
         <Card>
-          {stats.departments} <strong>Departments</strong>
+          <div className="flex flex-col items-center justify-center space-y-3">
+            <div className="px-3 py-1 bg-gray-400  w-[max-content] text-[24px] rounded-full flex items-center justify-center text-white font-bold">
+              {stats.departments}
+            </div>
+            <strong>Departments</strong>
+          </div>
         </Card>
         <Card>
-          {stats.leaveRequests} <strong>Leave requests</strong>
+          <div className="flex flex-col items-center justify-center space-y-3">
+            <div className="px-3 py-1 bg-gray-400 w-[max-content]  text-[24px] rounded-full flex items-center justify-center text-white font-bold">
+              {stats.leaveRequests}
+            </div>
+            <strong>Leave requests</strong>
+          </div>
         </Card>
       </div>
       <div className="grid grid-cols-3 gap-4 pt-10 m-auto ">
@@ -134,7 +149,7 @@ const HomeLayout = () => {
           {departments.length > 0 ? (
             departments.map((department) => (
               <li
-                className="uppercase pb-1 border-b list-none text-[14px] "
+                className="uppercase pb-1 mb-1 border-b border-white list-none text-[14px] "
                 key={department.id}
               >
                 {department.name}
